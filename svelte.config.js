@@ -10,7 +10,7 @@ const config = {
             appDir: 'app'
         }),
         paths: {
-			base: process.argv.includes('dev') ? '' : 'https://github.com/tianyich/smartphonePriceEngine/'
+			base: process.argv.includes('dev') ? '' : '/smartphonePriceEngine'
 		}
 	}
 };
