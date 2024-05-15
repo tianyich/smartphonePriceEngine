@@ -143,7 +143,7 @@
     function createHistogram(data) {
         let price = data.map((d) => +d.price);
         const svg = d3.select(svgElement);
-        const margin = { top: 10, right: 30, bottom: 30, left: 40 };
+        const margin = {top: 10, right: 30, bottom: 30, left: 40 };
         const width = 1400;
         const height = 400;
 
@@ -208,7 +208,7 @@
             .call((g) =>
                 g
                     .append("text")
-                    .attr("x", -margin.left)
+                    .attr("x", -margin.left - 30)
                     .attr("y", 10)
                     .attr("fill", "currentColor")
                     .attr("text-anchor", "start")
@@ -233,6 +233,7 @@
                 phonesInBin = phonesInBin.filter((x) => x['model'] !== undefined);
                 phonesInBin.sort((a, b) => b.rating - a.rating);
                 modelNames = phonesInBin.map((x) => x['model']).slice(0, 20);
+                
             })
             .style("fill", "#69b3a2")
             .style("stroke", "gray");
@@ -244,6 +245,7 @@
         svg.selectAll("rect").remove();
         svg.selectAll("g").remove();
         createHistogram(data);
+        selected = false;
     }
 
     let svgElement;
@@ -294,20 +296,21 @@
     </div>
     <div align="center">
         {#if selected}<h2>Best Rating Models for You </h2>{/if}
-    <table class = "top_picks">
-        <tbody>
-            {#each Array(Math.ceil(modelNames.length / 5)) as _, i (i)}
-                <tr>
-                    {#if modelNames[i * 5]}<td>{modelNames[i * 5]}</td>{/if}
-                    {#if modelNames[i * 5 + 1]}<td>{modelNames[i * 5 + 1]}</td>{/if}
-                    {#if modelNames[i * 5 + 2]}<td>{modelNames[i * 5 + 2]}</td>{/if}
-                    {#if modelNames[i * 5 + 3]}<td>{modelNames[i * 5 + 3]}</td>{/if}
-                    {#if modelNames[i * 5 + 4]}<td>{modelNames[i * 5 + 4]}</td>{/if}
-                </tr>
-            {/each}
-        </tbody>
-    </table>
-</div>
+        {#if !selected}<h2>Please Select the Price Range</h2>{/if}
+        {#if selected}<table class = "top_picks">
+            <tbody>
+                {#each Array(Math.ceil(modelNames.length / 5)) as _, i (i)}
+                    <tr>
+                        {#if modelNames[i * 5]}<td>{modelNames[i * 5]}</td>{/if}
+                        {#if modelNames[i * 5 + 1]}<td>{modelNames[i * 5 + 1]}</td>{/if}
+                        {#if modelNames[i * 5 + 2]}<td>{modelNames[i * 5 + 2]}</td>{/if}
+                        {#if modelNames[i * 5 + 3]}<td>{modelNames[i * 5 + 3]}</td>{/if}
+                        {#if modelNames[i * 5 + 4]}<td>{modelNames[i * 5 + 4]}</td>{/if}
+                    </tr>
+                {/each}
+            </tbody>
+        </table>{/if}
+    </div>
     
 
    
